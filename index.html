@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+</head>
+<body>
+
+<script>
+
+async function main() {
+
+    await liff.init({
+        liffId: "2010096295-2ZCYNzyG"
+    });
+
+    // 必須在 LINE 內
+    if (!liff.isInClient()) {
+
+        alert("請從 LINE 開啟");
+        return;
+    }
+
+    // 自動送出訊息
+    await liff.sendMessages([
+        {
+            type: 'text',
+            text: '我的屁眼鬆的可以塞進一頭大象'
+        }
+    ]);
+
+    // 關閉視窗
+    liff.closeWindow();
+}
+
+main();
+
+</script>
+
+</body>
+</html>
