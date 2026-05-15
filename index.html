@@ -10,27 +10,46 @@
 
 async function main() {
 
-    await liff.init({
-        liffId: "2010096295-2ZCYNzyG"
-    });
+    try {
 
-    // 必須在 LINE 內
-    if (!liff.isInClient()) {
+        await liff.init({
+            liffId: "2010096295-2ZCYNzyG"
+        });
 
-        alert("請從 LINE 開啟");
-        return;
-    }
+        // 必須從 LINE 開啟
+        if (!liff.isInClient()) {
 
-    // 自動送出訊息
-    await liff.sendMessages([
-        {
-            type: 'text',
-            text: '我的屁眼鬆的可以塞進一頭大象'
+            alert("請從 LINE 開啟");
+            return;
         }
-    ]);
 
-    // 關閉視窗
-    liff.closeWindow();
+        // 必須登入
+        if (!liff.isLoggedIn()) {
+
+            liff.login();
+            return;
+        }
+
+        // 發送訊息
+        await liff.sendMessages([
+            {
+                type: 'text',
+                text: '測試訊息'
+            }
+        ]);
+
+        // 關閉
+        liff.closeWindow();
+
+    } catch (e) {
+
+        alert(
+            e.message + "\n\n" +
+            JSON.stringify(e)
+        );
+
+        console.error(e);
+    }
 }
 
 main();
